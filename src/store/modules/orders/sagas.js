@@ -6,9 +6,9 @@ import api from '~/services/api'
 import { getOrdersSuccess } from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 
-export function* getOrdersRequest() {
+export function* getOrdersRequest({ payload }) {
   try {
-    const response = yield call(api.get, 'deliverymen/3/deliveries')
+    const response = yield call(api.get, `deliverymen/${payload.id}/deliveries`)
 
     const orders = response.data
     yield put(getOrdersSuccess(orders))

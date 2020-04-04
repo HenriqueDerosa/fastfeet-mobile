@@ -14,6 +14,14 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   background-color: ${colors.white};
 `
 
+export const Content = styled.View`
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 40px;
+  width: 100%;
+  justify-content: center;
+`
+
 export const Title = styled.Text`
   color: ${colors.graniteGray};
   font-size: 12px;

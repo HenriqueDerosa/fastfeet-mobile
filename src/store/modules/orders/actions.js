@@ -1,7 +1,7 @@
-export function getOrdersRequest(deliverymanId) {
+export function getOrdersRequest(id) {
   return {
     type: '@orders/GET_ORDERS_REQUEST',
-    payload: deliverymanId,
+    payload: { id },
   }
 }
 

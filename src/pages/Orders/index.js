@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 
-import { Image, Text } from 'react-native'
-
 import { useSelector, useDispatch } from 'react-redux'
-import Logo from '~/assets/logo.png'
 import Layout from '~/pages/_layout/default'
 import { getOrdersRequest } from '~/store/modules/orders/actions'
 import OrderCard from './OrderCard'
 import { getUser } from '~/store/modules/auth/selectors'
+import Header from './Header'
+import { Text, View } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 
 const Orders = () => {
   const dispatch = useDispatch()
@@ -15,17 +15,26 @@ const Orders = () => {
   const orders = useSelector((state) => state.orders.list)
 
   useEffect(() => {
-    dispatch(getOrdersRequest(3))
+    if (user) {
+      dispatch(getOrdersRequest(user.id))
+    }
   }, [dispatch])
+
+  useEffect(() => {
+    console.log(orders)
+  }, [])
+
+  if (!user) return null
 
   return (
     <Layout>
-      <Image source={Logo} />
-      {/* <Text>{user?.id}</Text>
-      <Text>Entregas</Text>
-      {orders.map((order) => (
-        <OrderCard key={order.id} order={order} />
-      ))} */}
+      <Header user={user} />
+      <FlatList
+        style={{ width: '100%' }}
+        data={orders}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <OrderCard order={item} />}
+      />
     </Layout>
   )
 }

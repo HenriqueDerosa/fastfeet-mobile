@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 
 import { Image } from './styles'
 
-export default function Avatar({ user }) {
+export default function Avatar({ user, ...params }) {
   const username = useMemo(() => user?.name?.replace(' ', '+'), [user])
   return (
     <Image
+      {...params}
       source={{
         uri:
           user?.avatar?.url ||

@@ -5,13 +5,24 @@ import PropTypes from 'prop-types'
 import { Container, Text } from './styles'
 import colors from '~/utils/colors'
 
-export default function Button({ children, loading, ...rest }) {
+export const ButtonTheme = {
+  DEFAULT: {
+    background: colors.lima,
+    color: colors.white,
+  },
+  TEXT_ONLY: {
+    background: 'transparent',
+    color: colors.royalBlue,
+  },
+}
+
+export default function Button({ children, loading, theme, ...rest }) {
   return (
-    <Container {...rest}>
+    <Container {...theme} {...rest}>
       {loading ? (
         <ActivityIndicator size="small" color={colors.white} />
       ) : (
-        <Text>{children}</Text>
+        <Text {...theme}>{children}</Text>
       )}
     </Container>
   )
@@ -20,7 +31,12 @@ export default function Button({ children, loading, ...rest }) {
 Button.propTypes = {
   children: PropTypes.string.isRequired,
   loading: PropTypes.bool,
+  theme: PropTypes.shape({
+    color: PropTypes.string,
+    background: PropTypes.string,
+  }),
 }
 Button.defaultProps = {
   loading: false,
+  theme: ButtonTheme.DEFAULT,
 }
