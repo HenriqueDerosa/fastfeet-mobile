@@ -10,12 +10,16 @@ import {
   Container,
   StatusContainer,
   DetailsContainer,
+  TitleContainer,
   Title,
   ItemContainer,
   ItemTitle,
   ItemValue,
 } from './styles'
 import { DetailButton, DetailButtonText } from './DetailButton'
+import Steps from './Steps'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import colors from '~/utils/colors'
 
 const OrderCard = ({ order }) => {
   const dateParsed = useMemo(
@@ -25,9 +29,12 @@ const OrderCard = ({ order }) => {
 
   return (
     <Container>
-      <StatusContainer>
+      <TitleContainer>
+        <Icon name="local-shipping" size={24} color={colors.royalBlue} />
         <Title>Encomenda {order.id}</Title>
-        <ItemValue>status</ItemValue>
+      </TitleContainer>
+      <StatusContainer>
+        <Steps />
       </StatusContainer>
 
       <DetailsContainer>

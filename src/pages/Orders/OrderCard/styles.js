@@ -8,10 +8,16 @@ export const Container = styled.View`
   margin: 8px 20px 28px;
 `
 
+export const TitleContainer = styled.View`
+  flex-direction: row;
+  margin: 13px 14px;
+  align-items: center;
+`
 export const Title = styled.Text`
   color: ${colors.royalBlue};
   font-size: 14px;
   font-weight: bold;
+  margin-left: 10px;
 `
 
 export const StatusContainer = styled.View`
