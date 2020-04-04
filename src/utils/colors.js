@@ -8,6 +8,7 @@ const colors = {
   quickSilver: '#999999',
   alto: '#DDDDDD',
   tundora: '#444444',
+  graniteGray: '#666666',
   cinnabar: '#E74040',
   tulipTree: '#E7BA40',
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
-import SignIn from '~/pages/SignIn'
+import Profile from '~/pages/Profile'
 import Orders from '~/pages/Orders'
 
 const Tab = createMaterialBottomTabNavigator()
@@ -9,6 +9,6 @@ const Tab = createMaterialBottomTabNavigator()
 export default () => (
   <Tab.Navigator initialRouteName="Entregas">
     <Tab.Screen name="Entregas" component={Orders} />
-    <Tab.Screen name="Meu Perfil" component={SignIn} />
+    <Tab.Screen name="Meu Perfil" component={Profile} />
   </Tab.Navigator>
 )

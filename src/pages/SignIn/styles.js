@@ -1,4 +1,4 @@
-import {Platform} from 'react-native'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 import colors from '~/utils/colors'
 
@@ -11,7 +11,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
 })`
   flex: 1;
   align-items: center;
-  padding: 45px;
+  padding: 25px;
   justify-content: center;
   background-color: ${colors.royalBlue};
 `

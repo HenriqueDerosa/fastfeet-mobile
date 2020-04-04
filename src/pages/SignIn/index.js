@@ -1,15 +1,22 @@
-import React, {useCallback} from 'react'
-import PropTypes from 'prop-types'
-import {Image} from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Image } from 'react-native'
 
+import { useDispatch, useSelector } from 'react-redux'
 import Logo from '~/assets/logo.png'
 
-import {Container, Form, FormInput, SubmitButton} from './styles'
+import { Container, Form, FormInput, SubmitButton } from './styles'
+import { signInRequest } from '~/store/modules/auth/actions'
 
-const SignIn = ({navigation}) => {
+const SignIn = () => {
+  const dispatch = useDispatch()
+
+  const isLoading = useSelector((state) => state.auth.loading)
+
+  const [id, setId] = useState('')
+
   const handleSubmit = useCallback(() => {
-    navigation.navigate('App')
-  }, [navigation])
+    dispatch(signInRequest(id))
+  }, [dispatch, id])
 
   return (
     <Container>
@@ -22,17 +29,17 @@ const SignIn = ({navigation}) => {
           autoCapitalize="none"
           placeholder="Informe seu ID de cadastro"
           returnKeyType="send"
+          value={id}
+          onChangeText={setId}
           onSubmitEditing={handleSubmit}
         />
 
-        <SubmitButton onPress={handleSubmit}>Entrar no sistema</SubmitButton>
+        <SubmitButton onPress={handleSubmit} loading={isLoading}>
+          Entrar no sistema
+        </SubmitButton>
       </Form>
     </Container>
   )
-}
-
-SignIn.propTypes = {
-  navigation: PropTypes.shape().isRequired,
 }
 
 export default SignIn
