@@ -10,6 +10,10 @@ export const ButtonTheme = {
     background: colors.lima,
     color: colors.white,
   },
+  DARK_TEXT: {
+    background: 'transparent',
+    color: colors.graniteGray,
+  },
   TEXT_ONLY: {
     background: 'transparent',
     color: colors.royalBlue,

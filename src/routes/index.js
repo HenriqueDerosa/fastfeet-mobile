@@ -8,6 +8,8 @@ import { ROUTES_APP } from '~/utils/constants'
 import { navigationRef } from '~/routes/navigator'
 import { useSelector } from 'react-redux'
 import { getUser } from '~/store/modules/auth/selectors'
+import Details from '~/pages/Details'
+import colors from '~/utils/colors'
 
 const Stack = createStackNavigator()
 
@@ -23,14 +25,31 @@ export default () => {
       <Stack.Navigator
         initialRouteName={initialRouteName}
         screenOptions={{
-          headerShown: false,
+          headerTransparent: true,
+          headerStatusBarHeight: 40,
         }}>
         <Stack.Screen
           name={ROUTES_APP.APP}
           component={Tabs}
-          options={{ title: 'App' }}
+          options={{ title: 'App', header: () => {} }}
         />
-        <Stack.Screen name={ROUTES_APP.SIGNIN} component={SignIn} />
+        <Stack.Screen
+          name={ROUTES_APP.SIGNIN}
+          component={SignIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={ROUTES_APP.DETAILS}
+          component={Details}
+          options={{
+            title: 'Detalhes da encomenda',
+            headerLeftContainerStyle: {
+              color: colors.white,
+            },
+            headerTintColor: colors.white,
+            headerBackTitleVisible: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

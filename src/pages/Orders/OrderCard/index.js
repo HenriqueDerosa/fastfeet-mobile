@@ -1,5 +1,4 @@
-// TODO FIX ALL function() to const func = () => {}
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { parseISO, format } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import { Text, View } from 'react-native'
@@ -19,13 +18,19 @@ import {
 import { DetailButton, DetailButtonText } from './DetailButton'
 import Steps from './Steps'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import * as Navigator from '~/routes/navigator'
 import colors from '~/utils/colors'
+import { ROUTES_APP } from '~/utils/constants'
 
 const OrderCard = ({ order }) => {
   const dateParsed = useMemo(
     () => format(parseISO(order.createdAt), 'dd/MM/yyyy', { locale: pt }),
     [],
   )
+
+  const handleClickDetails = useCallback(() => {
+    Navigator.navigate(ROUTES_APP.DETAILS, { order })
+  }, [])
 
   return (
     <Container>
@@ -46,7 +51,7 @@ const OrderCard = ({ order }) => {
           <ItemTitle>Cidade</ItemTitle>
           <ItemValue>{order.recipient.city}</ItemValue>
         </ItemContainer>
-        <DetailButton>
+        <DetailButton onPress={handleClickDetails}>
           <DetailButtonText>Ver detalhes</DetailButtonText>
         </DetailButton>
       </DetailsContainer>
