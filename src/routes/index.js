@@ -11,6 +11,8 @@ import { getUser } from '~/store/modules/auth/selectors'
 import Details from '~/pages/Details'
 import colors from '~/utils/colors'
 import ReportProblem from '~/pages/ReportProblem'
+import ViewProblems from '~/pages/ViewProblems'
+import ConfirmDelivery from '~/pages/ConfirmDelivery'
 
 const Stack = createStackNavigator()
 
@@ -56,6 +58,30 @@ export default () => {
           component={ReportProblem}
           options={{
             title: 'Informar problema',
+            headerLeftContainerStyle: {
+              color: colors.white,
+            },
+            headerTintColor: colors.white,
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name={ROUTES_APP.VIEW_PROBLEMS}
+          component={ViewProblems}
+          options={{
+            title: 'Informar problema',
+            headerLeftContainerStyle: {
+              color: colors.white,
+            },
+            headerTintColor: colors.white,
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name={ROUTES_APP.CONFIRM_DELIVERY}
+          component={ConfirmDelivery}
+          options={{
+            title: 'Confirmar entrega',
             headerLeftContainerStyle: {
               color: colors.white,
             },

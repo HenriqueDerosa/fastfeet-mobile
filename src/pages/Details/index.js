@@ -95,10 +95,18 @@ const Details = ({ route }) => {
           onPress={() => Navigator.navigate(ROUTES_APP.PROBLEM, { order })}>
           <TextTouchable>Informar Problema</TextTouchable>
         </Touchable>
-        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={() => {}}>
+        <Touchable
+          theme={ButtonTheme.DARK_TEXT}
+          onPress={() =>
+            Navigator.navigate(ROUTES_APP.VIEW_PROBLEMS, { order })
+          }>
           <TextTouchable>Visualizar Problemas</TextTouchable>
         </Touchable>
-        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={() => {}}>
+        <Touchable
+          theme={ButtonTheme.DARK_TEXT}
+          onPress={() =>
+            Navigator.navigate(ROUTES_APP.CONFIRM_DELIVERY, { order })
+          }>
           <TextTouchable>Confirmar entrega</TextTouchable>
         </Touchable>
       </ButtonsCollection>

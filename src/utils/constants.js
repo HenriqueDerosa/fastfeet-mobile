@@ -6,6 +6,8 @@ export const ROUTES_APP = {
   SIGNIN: 'Entrar',
   DETAILS: 'Details',
   PROBLEM: 'Problem',
+  VIEW_PROBLEMS: 'ViewProblems',
+  CONFIRM_DELIVERY: 'ConfirmDelivery',
 }
 
 export const TAB_BAR_HEIGHT = 70
