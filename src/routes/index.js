@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { getUser } from '~/store/modules/auth/selectors'
 import Details from '~/pages/Details'
 import colors from '~/utils/colors'
+import ReportProblem from '~/pages/ReportProblem'
 
 const Stack = createStackNavigator()
 
@@ -43,6 +44,18 @@ export default () => {
           component={Details}
           options={{
             title: 'Detalhes da encomenda',
+            headerLeftContainerStyle: {
+              color: colors.white,
+            },
+            headerTintColor: colors.white,
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name={ROUTES_APP.PROBLEM}
+          component={ReportProblem}
+          options={{
+            title: 'Informar problema',
             headerLeftContainerStyle: {
               color: colors.white,
             },

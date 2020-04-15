@@ -6,8 +6,12 @@ import { Container, Text } from './styles'
 import colors from '~/utils/colors'
 
 export const ButtonTheme = {
-  DEFAULT: {
+  INITIAL: {
     background: colors.lima,
+    color: colors.white,
+  },
+  DEFAULT: {
+    background: colors.royalBlue,
     color: colors.white,
   },
   DARK_TEXT: {

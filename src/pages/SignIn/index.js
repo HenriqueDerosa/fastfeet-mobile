@@ -6,6 +6,7 @@ import Logo from '~/assets/logo.png'
 
 import { Container, Form, FormInput, SubmitButton } from './styles'
 import { signInRequest } from '~/store/modules/auth/actions'
+import { ButtonTheme } from '~/components/Button'
 
 const SignIn = () => {
   const dispatch = useDispatch()
@@ -34,7 +35,10 @@ const SignIn = () => {
           onSubmitEditing={handleSubmit}
         />
 
-        <SubmitButton onPress={handleSubmit} loading={isLoading}>
+        <SubmitButton
+          theme={ButtonTheme.INITIAL}
+          onPress={handleSubmit}
+          loading={isLoading}>
           Entrar no sistema
         </SubmitButton>
       </Form>

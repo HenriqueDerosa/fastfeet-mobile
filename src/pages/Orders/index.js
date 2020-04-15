@@ -20,10 +20,6 @@ const Orders = () => {
     }
   }, [dispatch])
 
-  useEffect(() => {
-    console.log(orders)
-  }, [])
-
   if (!user) return null
 
   return (

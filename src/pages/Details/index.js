@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -12,15 +12,49 @@ import {
   Text,
   Row,
   Touchable,
+  TextTouchable,
   Card,
   ButtonsCollection,
 } from './styles'
 import { ButtonTheme } from '~/components/Button'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { View } from 'react-native'
+import { isPast, format, parseISO } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+import * as Navigator from '~/routes/navigator'
+import { ROUTES_APP } from '~/utils/constants'
 
-const Details = () => {
-  const handleLogout = useCallback(() => {}, [])
+const Details = ({ route }) => {
+  const order = useMemo(() => route.params.order, [route])
+
+  const status = useMemo(() => {
+    const { startDate, endDate } = order
+    if (isPast(new Date(startDate))) {
+      return 'pendente'
+    }
+    if (isPast(new Date(endDate))) return 'Entregue'
+
+    return 'Retirada'
+  }, [])
+
+  const formatedStartDate = useMemo(() => {
+    return !order.startDate
+      ? '-- / -- / --'
+      : format(parseISO(order.startDate), 'dd/MM/yyyy', { locale: pt })
+  }, [])
+
+  const formatedEndDate = useMemo(() => {
+    return !order.endDate
+      ? '-- / -- / --'
+      : format(parseISO(order.endDate), 'dd/MM/yyyy', { locale: pt })
+  }, [])
+
+  const recipient = useMemo(() => order.recipient.name, [])
+  const address = useMemo(() => {
+    const { address, address2, number, state, city, zipcode } = order.recipient
+
+    return `${address}, ${number}, ${city} - ${state}, ${zipcode}\n${address2}`
+  }, [])
 
   return (
     <Layout padding={35}>
@@ -30,11 +64,11 @@ const Details = () => {
           <BigTitle>Informações da entrega</BigTitle>
         </Row>
         <Title>Destinatário</Title>
-        <Text>Tesste</Text>
+        <Text>{recipient}</Text>
         <Title>Endereço da entrega</Title>
-        <Text>Tesste</Text>
+        <Text>{address}</Text>
         <Title>Produto</Title>
-        <Text>Teste</Text>
+        <Text>{order?.product}</Text>
       </Card>
       <Card>
         <Row>
@@ -43,27 +77,29 @@ const Details = () => {
         </Row>
 
         <Title>Status</Title>
-        <Text>Pend</Text>
+        <Text>{status}</Text>
         <Row>
           <View style={{ flex: 1 }}>
             <Title>Data de retirada</Title>
-            <Text>-- / -- / --</Text>
+            <Text>{formatedStartDate}</Text>
           </View>
           <View style={{ flex: 1 }}>
             <Title>Data de entrega</Title>
-            <Text>-- / -- / --</Text>
+            <Text>{formatedEndDate}</Text>
           </View>
         </Row>
       </Card>
       <ButtonsCollection>
-        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={handleLogout}>
-          Informar Problema
+        <Touchable
+          theme={ButtonTheme.DARK_TEXT}
+          onPress={() => Navigator.navigate(ROUTES_APP.PROBLEM, { order })}>
+          <TextTouchable>Informar Problema</TextTouchable>
         </Touchable>
-        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={handleLogout}>
-          Visualizar Problemas
+        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={() => {}}>
+          <TextTouchable>Visualizar Problemas</TextTouchable>
         </Touchable>
-        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={handleLogout}>
-          Confirmar entrega
+        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={() => {}}>
+          <TextTouchable>Confirmar entrega</TextTouchable>
         </Touchable>
       </ButtonsCollection>
     </Layout>
