@@ -28,13 +28,13 @@ export default () => {
   const takePicture = useCallback((camera) => {
     const take = async () => {
       const options = { quality: 0.5, base64: true }
-      const { uri, type, originalname } = await camera.takePictureAsync(options)
+      const { uri } = await camera.takePictureAsync(options)
 
       const formData = new FormData()
       formData.append('file', {
         uri,
-        type,
-        name: originalname,
+        type: 'image/jpeg',
+        name: `signature-delivery-${id}`,
       })
       try {
         const response = await api.post('files', formData)
