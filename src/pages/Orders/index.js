@@ -25,12 +25,16 @@ const Orders = () => {
   return (
     <Layout>
       <Header user={user} />
-      <FlatList
-        style={{ width: '100%' }}
-        data={orders}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <OrderCard order={item} />}
-      />
+      {orders?.list ? (
+        <Text>Aguarde ...</Text>
+      ) : (
+        <FlatList
+          style={{ width: '100%' }}
+          data={orders}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <OrderCard order={item} />}
+        />
+      )}
     </Layout>
   )
 }

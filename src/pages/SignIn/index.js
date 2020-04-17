@@ -7,6 +7,7 @@ import Logo from '~/assets/logo.png'
 import { Container, Form, FormInput, SubmitButton } from './styles'
 import { signInRequest } from '~/store/modules/auth/actions'
 import { ButtonTheme } from '~/components/Button'
+import Input from '~/components/Input'
 
 const SignIn = () => {
   const dispatch = useDispatch()
@@ -16,6 +17,10 @@ const SignIn = () => {
   const [id, setId] = useState('')
 
   const handleSubmit = useCallback(() => {
+    console.log('id', id)
+    if (id === null || id === '') {
+      return
+    }
     dispatch(signInRequest(id))
   }, [dispatch, id])
 
@@ -24,7 +29,7 @@ const SignIn = () => {
       <Image source={Logo} />
 
       <Form>
-        <FormInput
+        <Input
           keyboardType="email-address"
           autoCorrect={false}
           autoCapitalize="none"
@@ -33,12 +38,14 @@ const SignIn = () => {
           value={id}
           onChangeText={setId}
           onSubmitEditing={handleSubmit}
+          style={{ marginBottom: 10 }}
         />
 
         <SubmitButton
           theme={ButtonTheme.INITIAL}
           onPress={handleSubmit}
-          loading={isLoading}>
+          // loading={isLoading}>
+        >
           Entrar no sistema
         </SubmitButton>
       </Form>

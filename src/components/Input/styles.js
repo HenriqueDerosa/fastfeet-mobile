@@ -1,7 +1,11 @@
 import styled from 'styled-components/native'
 import colors from '~/utils/colors'
 
-export const Container = styled.View`
+export const Container = styled.View``
+
+export const TInput = styled.TextInput.attrs({
+  placeholderTextColor: colors.quickSilver,
+})`
   padding: 12px 20px;
   height: 46px;
   background: ${colors.white};
@@ -12,12 +16,5 @@ export const Container = styled.View`
 
   flex-direction: row;
   align-items: center;
-`
-
-export const TInput = styled.TextInput.attrs({
-  placeholderTextColor: colors.quickSilver,
-})`
-  flex: 1;
   font-size: 15px;
-  color: ${colors.tundora};
 `

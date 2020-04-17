@@ -21,6 +21,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   behavior: 'padding',
 })`
   flex: 1;
+  margin-top: 20px;
   align-items: flex-start;
   padding: ${(props) => (props.padding ? `${props.padding}px` : `0`)};
 `

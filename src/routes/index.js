@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import SignIn from '~/pages/SignIn'
 import Tabs from './tabs'
-import { ROUTES_APP } from '~/utils/constants'
+import { ROUTES_APP, TAB_BAR_HEIGHT } from '~/utils/constants'
 import { navigationRef } from '~/routes/navigator'
 import { useSelector } from 'react-redux'
 import { getUser } from '~/store/modules/auth/selectors'
@@ -15,6 +15,17 @@ import ViewProblems from '~/pages/ViewProblems'
 import ConfirmDelivery from '~/pages/ConfirmDelivery'
 
 const Stack = createStackNavigator()
+
+const defaultOptions = {
+  headerStyle: {
+    height: TAB_BAR_HEIGHT,
+  },
+  headerLeftContainerStyle: {
+    color: colors.white,
+  },
+  headerTintColor: colors.white,
+  headerBackTitleVisible: false,
+}
 
 export default () => {
   const signed = useSelector(getUser())
@@ -46,11 +57,7 @@ export default () => {
           component={Details}
           options={{
             title: 'Detalhes da encomenda',
-            headerLeftContainerStyle: {
-              color: colors.white,
-            },
-            headerTintColor: colors.white,
-            headerBackTitleVisible: false,
+            ...defaultOptions,
           }}
         />
         <Stack.Screen
@@ -58,11 +65,7 @@ export default () => {
           component={ReportProblem}
           options={{
             title: 'Informar problema',
-            headerLeftContainerStyle: {
-              color: colors.white,
-            },
-            headerTintColor: colors.white,
-            headerBackTitleVisible: false,
+            ...defaultOptions,
           }}
         />
         <Stack.Screen
@@ -70,11 +73,7 @@ export default () => {
           component={ViewProblems}
           options={{
             title: 'Informar problema',
-            headerLeftContainerStyle: {
-              color: colors.white,
-            },
-            headerTintColor: colors.white,
-            headerBackTitleVisible: false,
+            ...defaultOptions,
           }}
         />
         <Stack.Screen
@@ -82,11 +81,7 @@ export default () => {
           component={ConfirmDelivery}
           options={{
             title: 'Confirmar entrega',
-            headerLeftContainerStyle: {
-              color: colors.white,
-            },
-            headerTintColor: colors.white,
-            headerBackTitleVisible: false,
+            ...defaultOptions,
           }}
         />
       </Stack.Navigator>
