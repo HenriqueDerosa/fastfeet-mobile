@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
 import colors from '~/utils/colors'
 import Button from '~/components/Button'
+import { RectButton } from 'react-native-gesture-handler'
 
 export const Card = styled.View`
   flex-direction: column;
@@ -42,13 +43,20 @@ export const Text = styled.Text`
   margin-bottom: 15px;
 `
 
-export const Touchable = styled(Button)`
+export const Line = styled.View`
+  height: 100%;
+  width: 2px;
+  background-color: ${colors.gallery};
+`
+
+export const Touchable = styled(RectButton)`
   margin: 15px 0;
+  padding: 0 24px;
   width: 33.3%;
   height: 100%;
   color: red;
+  align-items: center;
   justify-content: center;
-  border-radius: 4px;
   color: ${colors.graniteGray};
   background: ${colors.whiteLilac};
 `
@@ -63,7 +71,7 @@ export const ButtonsCollection = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
-  background-color: ${colors.whiteLilac};
+  background-color: ${colors.tundora};
   padding: 0;
   border-radius: 4px;
   box-shadow: 0 0 3px #0000001a;

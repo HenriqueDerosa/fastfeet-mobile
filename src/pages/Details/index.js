@@ -1,9 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 
-import { useSelector, useDispatch } from 'react-redux'
-
-import { signOut } from '~/store/modules/auth/actions'
-import { getUser } from '~/store/modules/auth/selectors'
+import { useDispatch, useSelector } from 'react-redux'
 import colors from '~/utils/colors'
 import Layout from '../_layout/Detail'
 import {
@@ -14,46 +11,74 @@ import {
   Touchable,
   TextTouchable,
   Card,
+  Line,
   ButtonsCollection,
 } from './styles'
+
 import { ButtonTheme } from '~/components/Button'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { View } from 'react-native'
-import { isPast, format, parseISO } from 'date-fns'
+import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Alert } from 'react-native'
+import { format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import * as Navigator from '~/routes/navigator'
-import { ROUTES_APP } from '~/utils/constants'
+import { ROUTES_APP, ORDER_STATUS } from '~/utils/constants'
+import { getOrderStatus } from '~/utils/helpers'
+import { updateOrderRequest } from '~/store/modules/orders/actions'
 
 const Details = ({ route }) => {
-  const order = useMemo(() => route.params.order, [route])
+  const dispatch = useDispatch()
+  const order = useSelector((state) =>
+    state.orders.list.find((i) => i.id === route.params.order.id),
+  )
 
-  const status = useMemo(() => {
-    const { startDate, endDate } = order
-    if (isPast(new Date(startDate))) {
-      return 'pendente'
-    }
-    if (isPast(new Date(endDate))) return 'Entregue'
-
-    return 'Retirada'
-  }, [])
+  const status = useMemo(() => getOrderStatus(order), [order])
 
   const formatedStartDate = useMemo(() => {
     return !order.startDate
       ? '-- / -- / --'
       : format(parseISO(order.startDate), 'dd/MM/yyyy', { locale: pt })
-  }, [])
+  }, [order])
 
   const formatedEndDate = useMemo(() => {
     return !order.endDate
       ? '-- / -- / --'
       : format(parseISO(order.endDate), 'dd/MM/yyyy', { locale: pt })
-  }, [])
+  }, [order])
 
   const recipient = useMemo(() => order.recipient.name, [])
   const address = useMemo(() => {
     const { address, address2, number, state, city, zipcode } = order.recipient
 
     return `${address}, ${number}, ${city} - ${state}, ${zipcode}\n${address2}`
+  }, [order])
+
+  const handleWithdraw = useCallback(() => {
+    dispatch(
+      updateOrderRequest(order.id, {
+        startDate: new Date(),
+      }),
+    )
+  }, [])
+
+  const handlePressConfirm = useCallback(() => {
+    if (status === ORDER_STATUS.WITHDRAWN) {
+      Navigator.navigate(ROUTES_APP.CONFIRM_DELIVERY, { order })
+    } else {
+      Alert.alert(
+        'Marcar como retirada',
+        'Você vai marcar esta encomenda como retirada, está certo disso?',
+        [
+          {
+            text: 'Cancelar',
+          },
+          {
+            text: 'Sim',
+            onPress: handleWithdraw,
+          },
+        ],
+      )
+    }
   }, [])
 
   return (
@@ -93,21 +118,34 @@ const Details = ({ route }) => {
         <Touchable
           theme={ButtonTheme.DARK_TEXT}
           onPress={() => Navigator.navigate(ROUTES_APP.PROBLEM, { order })}>
+          <IconMCI
+            name="close-circle-outline"
+            color={colors.cinnabar}
+            size={20}
+          />
           <TextTouchable>Informar Problema</TextTouchable>
         </Touchable>
+        <Line />
         <Touchable
           theme={ButtonTheme.DARK_TEXT}
           onPress={() =>
             Navigator.navigate(ROUTES_APP.VIEW_PROBLEMS, { order })
           }>
+          <Icon name="info-outline" color={colors.tulipTree} size={20} />
           <TextTouchable>Visualizar Problemas</TextTouchable>
         </Touchable>
-        <Touchable
-          theme={ButtonTheme.DARK_TEXT}
-          onPress={() =>
-            Navigator.navigate(ROUTES_APP.CONFIRM_DELIVERY, { order })
-          }>
-          <TextTouchable>Confirmar entrega</TextTouchable>
+        <Line />
+        <Touchable theme={ButtonTheme.DARK_TEXT} onPress={handlePressConfirm}>
+          <IconMCI
+            name="check-circle-outline"
+            color={colors.royalBlue}
+            size={20}
+          />
+          <TextTouchable>
+            {status === ORDER_STATUS.WITHDRAWN
+              ? 'Confirmar entrega'
+              : 'Fazer a retirada'}
+          </TextTouchable>
         </Touchable>
       </ButtonsCollection>
     </Layout>

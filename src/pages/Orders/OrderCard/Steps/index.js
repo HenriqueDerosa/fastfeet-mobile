@@ -2,11 +2,18 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import { Container, Line, Bullet, ContainerNames, StatusName } from './styles'
-
-export const ORDER_STATUS = ['waiting', 'progress', 'delivered']
+import { getOrderStatus } from '~/utils/helpers'
+import { ORDER_STATUS } from '~/utils/constants'
 
 const Steps = ({ status }) => {
-  const bullets = useMemo(() => [1, 1, 0], [])
+  const bullets = useMemo(
+    () => [
+      true,
+      status !== ORDER_STATUS.PENDING,
+      status === ORDER_STATUS.DELIVERED,
+    ],
+    [],
+  )
 
   return (
     <>

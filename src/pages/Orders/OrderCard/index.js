@@ -21,6 +21,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import * as Navigator from '~/routes/navigator'
 import colors from '~/utils/colors'
 import { ROUTES_APP } from '~/utils/constants'
+import { getOrderStatus } from '~/utils/helpers'
 
 const OrderCard = ({ order }) => {
   const dateParsed = useMemo(
@@ -39,7 +40,7 @@ const OrderCard = ({ order }) => {
         <Title>Encomenda {order.id}</Title>
       </TitleContainer>
       <StatusContainer>
-        <Steps />
+        <Steps status={getOrderStatus(order)} />
       </StatusContainer>
 
       <DetailsContainer>

@@ -37,12 +37,9 @@ export default () => {
         name: `signature-delivery-${id}`,
       })
       try {
-        const response = await api.post('files', formData)
-        console.log(response.data)
+        await api.post('files', formData)
       } catch (err) {
-        console.log('ERROR')
         console.log(err)
-        console.log('.')
       }
     }
 

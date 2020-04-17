@@ -11,3 +11,9 @@ export const ROUTES_APP = {
 }
 
 export const TAB_BAR_HEIGHT = 70
+
+export const ORDER_STATUS = {
+  WITHDRAWN: 'Retirada',
+  DELIVERED: 'Entregue',
+  PENDING: 'Pendente',
+}
