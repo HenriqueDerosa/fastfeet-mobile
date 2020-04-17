@@ -2,13 +2,17 @@ import styled from 'styled-components/native'
 import colors from '~/utils/colors'
 import Button from '~/components/Button'
 import { TextInput } from 'react-native-paper'
+import { Dimensions } from 'react-native'
 
 export const Card = styled.View`
-  flex-direction: column;
-  width: 100%;
-  justify-content: flex-start;
-  padding: 16px 12px;
-  border-radius: 4px;
+  margin: auto;
+  width: ${`${Dimensions.get('window').width - 100}px`};
+  height: 370px;
+  background-color: black;
+  border-radius: 8px;
+  border: 2px;
+  border-color: white;
+  overflow: hidden;
 `
 
 export const TextField = styled(TextInput)`

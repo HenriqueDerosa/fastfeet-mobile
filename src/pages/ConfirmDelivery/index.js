@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { View } from 'react-native'
 import { isPast, format, parseISO } from 'date-fns'
 import pt from 'date-fns/locale/pt'
+import Camera from '~/components/Camera'
 
 const ConfirmDelivery = ({ route }) => {
   const order = useMemo(() => route.params.order, [route])
@@ -29,7 +30,7 @@ const ConfirmDelivery = ({ route }) => {
   return (
     <Layout padding={35}>
       <Card>
-        <Text>Confirme</Text>
+        <Camera />
       </Card>
       <Button>Enviar</Button>
     </Layout>
