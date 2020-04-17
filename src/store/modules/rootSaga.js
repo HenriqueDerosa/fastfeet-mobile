@@ -4,9 +4,9 @@ import auth from './auth/sagas'
 import orders from './orders/sagas'
 import deliveryman from './deliveryman/sagas'
 // import recipients from './recipients/sagas'
-// import problems from './problems/sagas'
+import problems from './problems/sagas'
 // import user from './user/sagas'
 
 export default function* rootSaga() {
-  return yield all([auth, orders, deliveryman])
+  return yield all([auth, orders, deliveryman, problems])
 }

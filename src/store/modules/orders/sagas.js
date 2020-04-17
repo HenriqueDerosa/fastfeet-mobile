@@ -3,8 +3,9 @@ import { takeLatest, call, put, all } from 'redux-saga/effects'
 import { Alert } from 'react-native'
 import api from '~/services/api'
 
-import { getOrdersSuccess } from './actions'
-import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
+import { getOrdersSuccess, createProblemSuccess } from './actions'
+import { GENERIC_ERROR_MESSAGE, ROUTES_APP } from '~/utils/constants'
+import * as Navigator from '~/routes/navigator'
 
 export function* getOrdersRequest({ payload }) {
   try {
@@ -17,17 +18,4 @@ export function* getOrdersRequest({ payload }) {
   }
 }
 
-export function setToken({ payload }) {
-  if (!payload) return
-
-  const { token } = payload.auth
-
-  if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`
-  }
-}
-
-export default all([
-  takeLatest('persist/REHYDRATE', setToken),
-  takeLatest('@orders/GET_ORDERS_REQUEST', getOrdersRequest),
-])
+export default all([takeLatest('@orders/GET_ORDERS_REQUEST', getOrdersRequest)])

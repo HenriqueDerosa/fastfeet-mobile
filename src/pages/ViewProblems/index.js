@@ -1,10 +1,7 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { signOut } from '~/store/modules/auth/actions'
-import { getUser } from '~/store/modules/auth/selectors'
-import colors from '~/utils/colors'
 import Layout from '../_layout/Detail'
 import {
   BigTitle,
@@ -14,30 +11,53 @@ import {
   Touchable,
   TextTouchable,
   Card,
-  TextField,
-  ButtonsCollection,
 } from './styles'
-import Button, { ButtonTheme } from '~/components/Button'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import { View } from 'react-native'
-import { isPast, format, parseISO } from 'date-fns'
-import pt from 'date-fns/locale/pt'
+import { getProblemsRequest } from '~/store/modules/problems/actions'
+import { format, parseISO } from 'date-fns'
+import { pt } from 'date-fns/locale'
+import { ScrollView } from 'react-native'
 
 const ViewProblems = ({ route }) => {
+  const dispatch = useDispatch()
   const order = useMemo(() => route.params.order, [route])
+  const problems = useSelector((state) => state.problems.list)
+
+  useEffect(() => {
+    if (order) {
+      dispatch(getProblemsRequest(order.id))
+    }
+  }, [order])
+
+  if (!problems) {
+    return (
+      <Layout padding={35}>
+        <BigTitle>Carregando</BigTitle>
+      </Layout>
+    )
+  }
 
   return (
     <Layout padding={35}>
       <Card>
-        <BigTitle>Encomenda 01</BigTitle>
-        <Touchable>
-          <TextTouchable>Destinatário ausente</TextTouchable>
-          <TextTouchable>14/02/2020</TextTouchable>
-        </Touchable>
-        <Touchable>
-          <TextTouchable>Destinatário ausente</TextTouchable>
-          <TextTouchable>14/02/2020</TextTouchable>
-        </Touchable>
+        <BigTitle>Encomenda {order.id}</BigTitle>
+        <ScrollView>
+          {problems.length > 0 ? (
+            problems.map((problem) => (
+              <Touchable key={problem.id}>
+                <TextTouchable>{problem.description}</TextTouchable>
+                <TextTouchable style={{ fontSize: 10 }}>
+                  {format(parseISO(problem.createdAt), 'dd/MM/yyyy', {
+                    locale: pt,
+                  })}
+                </TextTouchable>
+              </Touchable>
+            ))
+          ) : (
+            <TextTouchable style={{ marginTop: 40 }}>
+              Nenhum problema nessa encomenda
+            </TextTouchable>
+          )}
+        </ScrollView>
       </Card>
     </Layout>
   )
