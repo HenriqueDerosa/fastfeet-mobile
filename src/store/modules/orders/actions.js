@@ -12,6 +12,19 @@ export function getOrdersSuccess(orders) {
   }
 }
 
+export function withdrawOrderRequest(id, payload) {
+  return {
+    type: '@orders/WITHDRAW_ORDERS_REQUEST',
+    payload: { id, payload },
+  }
+}
+
+export function withdrawOrderSuccess(order) {
+  return {
+    type: '@orders/WITHDRAW_ORDERS_SUCCESS',
+    payload: order,
+  }
+}
 export function updateOrderRequest(id, payload) {
   return {
     type: '@orders/UPDATE_ORDERS_REQUEST',

@@ -24,6 +24,18 @@ const Orders = () => {
     [orders, filter],
   )
 
+  const ordersList = useMemo(() => {
+    console.log(orders.find((i) => i.id === 35))
+    return (
+      <FlatList
+        style={{ width: '100%' }}
+        data={filteredItems}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <OrderCard order={item} />}
+      />
+    )
+  }, [orders, filteredItems])
+
   useEffect(() => {
     if (user) {
       dispatch(getOrdersRequest(user.id))
@@ -35,16 +47,7 @@ const Orders = () => {
   return (
     <Layout>
       <Header user={user} filter={filter} setFilter={setFilter} />
-      {orders?.list ? (
-        <Text>Aguarde ...</Text>
-      ) : (
-        <FlatList
-          style={{ width: '100%' }}
-          data={filteredItems}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <OrderCard order={item} />}
-        />
-      )}
+      {ordersList}
     </Layout>
   )
 }

@@ -9,6 +9,7 @@ import {
   createProblemSuccess,
   updateOrderSuccess,
   deliverOrderSuccess,
+  withdrawOrderSuccess,
 } from './actions'
 import { GENERIC_ERROR_MESSAGE, ROUTES_APP } from '~/utils/constants'
 import * as Navigator from '~/routes/navigator'
@@ -39,6 +40,23 @@ export function* updateOrdersRequest({ payload }) {
   }
 }
 
+export function* withdrawOrdersRequest({ payload }) {
+  try {
+    const response = yield call(
+      api.put,
+      `order/${payload.id}/pickup`,
+      humps.decamelizeKeys(payload.payload),
+    )
+
+    const order = response.data
+    yield put(withdrawOrderSuccess(order))
+  } catch (err) {
+    console.log(err)
+    console.tron.log('teste', err)
+    Alert.alert('Erro', GENERIC_ERROR_MESSAGE)
+  }
+}
+
 export function* deliverOrderRequest({ payload }) {
   try {
     const { signatureId } = payload
@@ -62,5 +80,6 @@ export function* deliverOrderRequest({ payload }) {
 export default all([
   takeLatest('@orders/GET_ORDERS_REQUEST', getOrdersRequest),
   takeLatest('@orders/UPDATE_ORDERS_REQUEST', updateOrdersRequest),
+  takeLatest('@orders/WITHDRAW_ORDERS_REQUEST', withdrawOrdersRequest),
   takeLatest('@orders/DELIVER_ORDER_REQUEST', deliverOrderRequest),
 ])

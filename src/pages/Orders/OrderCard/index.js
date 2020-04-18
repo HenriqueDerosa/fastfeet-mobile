@@ -26,8 +26,10 @@ import { getOrderStatus } from '~/utils/helpers'
 const OrderCard = ({ order }) => {
   const dateParsed = useMemo(
     () => format(parseISO(order.createdAt), 'dd/MM/yyyy', { locale: pt }),
-    [],
+    [order],
   )
+
+  const orderStatus = useMemo(() => getOrderStatus(order), [order])
 
   const handleClickDetails = useCallback(() => {
     Navigator.navigate(ROUTES_APP.DETAILS, { order })
@@ -40,7 +42,7 @@ const OrderCard = ({ order }) => {
         <Title>Encomenda {order.id}</Title>
       </TitleContainer>
       <StatusContainer>
-        <Steps status={getOrderStatus(order)} />
+        <Steps status={orderStatus} />
       </StatusContainer>
 
       <DetailsContainer>

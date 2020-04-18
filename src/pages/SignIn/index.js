@@ -30,9 +30,7 @@ const SignIn = () => {
 
       <Form>
         <Input
-          keyboardType="email-address"
-          autoCorrect={false}
-          autoCapitalize="none"
+          keyboardType="numeric"
           placeholder="Informe seu ID de cadastro"
           returnKeyType="send"
           value={id}
@@ -44,8 +42,7 @@ const SignIn = () => {
         <SubmitButton
           theme={ButtonTheme.INITIAL}
           onPress={handleSubmit}
-          // loading={isLoading}>
-        >
+          loading={isLoading}>
           Entrar no sistema
         </SubmitButton>
       </Form>

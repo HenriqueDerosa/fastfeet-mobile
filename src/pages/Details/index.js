@@ -24,13 +24,14 @@ import pt from 'date-fns/locale/pt'
 import * as Navigator from '~/routes/navigator'
 import { ROUTES_APP, ORDER_STATUS } from '~/utils/constants'
 import { getOrderStatus } from '~/utils/helpers'
-import { updateOrderRequest } from '~/store/modules/orders/actions'
+import { withdrawOrderRequest } from '~/store/modules/orders/actions'
 
 const Details = ({ route }) => {
   const dispatch = useDispatch()
   const order = useSelector((state) =>
     state.orders.list.find((i) => i.id === route.params.order.id),
   )
+  const user = useSelector((state) => state.auth.user.id)
 
   const status = useMemo(() => getOrderStatus(order), [order])
 
@@ -55,7 +56,8 @@ const Details = ({ route }) => {
 
   const handleWithdraw = useCallback(() => {
     dispatch(
-      updateOrderRequest(order.id, {
+      withdrawOrderRequest(order.id, {
+        deliverymanId: user,
         startDate: new Date(),
       }),
     )
