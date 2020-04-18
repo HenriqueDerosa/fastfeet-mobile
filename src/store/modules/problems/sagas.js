@@ -20,7 +20,7 @@ export function* getProblemsRequest({ payload }) {
 
 export function* createProblemRequest({ payload }) {
   try {
-    const response = yield call(api.post, `order/${payload.id}/problems`, {
+    const response = yield call(api.post, `order/${payload.orderId}/problems`, {
       description: payload.description,
     })
 

@@ -62,7 +62,9 @@ const Details = ({ route }) => {
   }, [])
 
   const handlePressConfirm = useCallback(() => {
-    if (status === ORDER_STATUS.WITHDRAWN) {
+    if (status === ORDER_STATUS.DELIVERED) {
+      return
+    } else if (status === ORDER_STATUS.WITHDRAWN) {
       Navigator.navigate(ROUTES_APP.CONFIRM_DELIVERY, { order })
     } else {
       Alert.alert(
@@ -144,6 +146,8 @@ const Details = ({ route }) => {
           <TextTouchable>
             {status === ORDER_STATUS.WITHDRAWN
               ? 'Confirmar entrega'
+              : status === ORDER_STATUS.DELIVERED
+              ? 'Produto entregue'
               : 'Fazer a retirada'}
           </TextTouchable>
         </Touchable>

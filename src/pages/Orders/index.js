@@ -28,7 +28,7 @@ const Orders = () => {
     if (user) {
       dispatch(getOrdersRequest(user.id))
     }
-  }, [dispatch])
+  }, [dispatch, user])
 
   if (!user) return null
 

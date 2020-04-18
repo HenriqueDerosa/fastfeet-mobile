@@ -23,6 +23,7 @@ export default ({ image, setImage }) => {
       const options = { base64: true }
       const picture = await camera.takePictureAsync(options)
 
+      console.log('took picture')
       setImage(picture)
     }
 

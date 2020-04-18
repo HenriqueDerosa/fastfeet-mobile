@@ -12,10 +12,10 @@ export function getProblemsSuccess(problems) {
   }
 }
 
-export function createProblemRequest(id, description) {
+export function createProblemRequest(orderId, description) {
   return {
     type: '@problems/CREATE_PROBLEM_REQUEST',
-    payload: { id, description },
+    payload: { orderId, description },
   }
 }
 

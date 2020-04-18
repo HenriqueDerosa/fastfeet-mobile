@@ -11,6 +11,7 @@ export function getOrdersSuccess(orders) {
     payload: orders,
   }
 }
+
 export function updateOrderRequest(id, payload) {
   return {
     type: '@orders/UPDATE_ORDERS_REQUEST',
@@ -21,6 +22,20 @@ export function updateOrderRequest(id, payload) {
 export function updateOrderSuccess(order) {
   return {
     type: '@orders/UPDATE_ORDERS_SUCCESS',
+    payload: order,
+  }
+}
+
+export function deliverOrderRequest(id, signatureId) {
+  return {
+    type: '@orders/DELIVER_ORDER_REQUEST',
+    payload: { id, signatureId },
+  }
+}
+
+export function deliverOrderSuccess(order) {
+  return {
+    type: '@orders/DELIVER_ORDER_SUCCESS',
     payload: order,
   }
 }
