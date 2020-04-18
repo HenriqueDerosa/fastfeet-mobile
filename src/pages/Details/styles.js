@@ -13,6 +13,7 @@ export const Card = styled.View`
   padding: 16px 12px;
   border-radius: 4px;
   box-shadow: 0 0 3px #0000001a;
+  elevation: 1;
 `
 
 export const BigTitle = styled.Text`

@@ -3,6 +3,7 @@ import colors from '~/utils/colors'
 
 export const Container = styled.View`
   box-shadow: 0 0 3px #0000001a;
+  elevation: 1;
   background-color: white;
   border-radius: 4px;
   margin: 8px 20px 28px;
