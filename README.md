@@ -14,6 +14,10 @@ Developed with ♡ for Rocketseat Challenge of Bootcamp GoStack
 To run the application properly, run the docker containers and the backend before start.
 You can either use genymotion, ios simulator in your mac, or even an actual device.
 
+#### Extra
+
+**Humps →** used humps to keep the javascript camelCase pattern
+
 # What is the briefing
 
 The main goal of these three repositories was to create a whole application from the backend, mobile and web frontend.
