@@ -15,10 +15,9 @@ import {
   Title,
   IconContainer,
 } from './styles'
-import { View, TouchableOpacity, Text } from 'react-native'
 import Menu from '~/components/Menu'
 
-const Header = ({ user }) => {
+const Header = ({ user, filter, setFilter }) => {
   const dispatch = useDispatch()
 
   const handleLogout = useCallback(() => {
@@ -37,7 +36,7 @@ const Header = ({ user }) => {
           <Icon name="exit-to-app" size={20} color={colors.cinnabar} />
         </IconContainer>
       </UserContainer>
-      <Menu />
+      <Menu selected={filter} setSelected={setFilter} />
     </Container>
   )
 }
@@ -48,6 +47,13 @@ Header.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,
+  filter: PropTypes.arrayOf(PropTypes.string),
+  setFilter: PropTypes.func,
+}
+
+Header.defaultProps = {
+  filter: [],
+  setFilter: () => {},
 }
 
 export default Header
